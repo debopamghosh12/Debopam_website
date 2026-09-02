@@ -1,0 +1,69 @@
+.label {
+  display: block;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+.iconWrap {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+}
+
+.icon {
+  width: clamp(2.75rem, 5vw, 3.5rem);
+  height: clamp(2.75rem, 5vw, 3.5rem);
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .icon {
+    transition: transform 0.15s ease;
+  }
+}
+
+.iconWrap:hover .icon,
+.iconWrap:focus-visible .icon {
+  transform: scale(1.08);
+}
+
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  z-index: 1;
+  white-space: nowrap;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 4px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tooltip {
+    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    transition-duration: 0.01s;
+  }
+}
+
+.iconWrap:hover .tooltip,
+.iconWrap:focus-visible .tooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}

@@ -1,0 +1,158 @@
+.about {
+  position: relative;
+  overflow: hidden;
+}
+
+.bgLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bgGrid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 112px 112px;
+  opacity: 0.45;
+}
+
+.bgScan {
+  position: absolute;
+  top: -20%;
+  height: 140%;
+  width: 380px;
+  left: -420px;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    var(--accent-cool) 50%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  opacity: 0.025;
+  animation: aboutScan 30s ease-in-out infinite;
+}
+
+@keyframes aboutScan {
+  0%,
+  100% {
+    left: -420px;
+  }
+  50% {
+    left: calc(100% + 420px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bgScan {
+    animation: none;
+    left: calc(50% - 190px);
+  }
+}
+
+.contentLayer {
+  position: relative;
+  z-index: 1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: clamp(2.75rem, 8vw, 7rem);
+}
+
+.paragraphs p {
+  color: var(--text-dim);
+  font-size: 1.02rem;
+  max-width: 42rem;
+}
+
+.paragraphs p + p {
+  margin-top: 1.4rem;
+}
+
+.facts {
+  --facts-gutter: clamp(1.25rem, 3vw, 2rem);
+  border-left: 1px solid var(--line);
+  padding-left: var(--facts-gutter);
+}
+
+.dividerDot {
+  position: absolute;
+  top: -3px;
+  left: calc(-1 * var(--facts-gutter) - 3px);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: dividerDotPulse 4s ease-in-out infinite;
+}
+
+.dividerDotAmber {
+  background: var(--accent);
+}
+
+.dividerDotTeal {
+  background: var(--accent-cool);
+}
+
+@keyframes dividerDotPulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.65;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dividerDot {
+    animation: none;
+    opacity: 0.45;
+  }
+}
+
+.fact {
+  position: relative;
+}
+
+.fact + .fact {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.factLabel {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-cool);
+  margin-bottom: 0.4rem;
+}
+
+.factValue {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--text);
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .facts {
+    border-left: none;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 2rem;
+  }
+  .dividerDot {
+    display: none;
+  }
+}

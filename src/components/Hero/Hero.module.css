@@ -1,0 +1,149 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--nav-height);
+  overflow: hidden;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(2.5rem, 4vw, 4rem);
+  width: 100%;
+}
+
+.sphereCol {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  z-index: 0;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.textCol {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 2.1rem;
+  opacity: 0;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-cool);
+  box-shadow: 0 0 0 3px rgba(63, 217, 199, 0.15);
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .statusDot {
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.headline {
+  font-size: clamp(2.2rem, 5vw, 3.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: 2.1rem;
+  opacity: 0;
+}
+
+.headline .accent {
+  color: var(--accent);
+}
+
+.subhead {
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  color: var(--text-dim);
+  max-width: 34rem;
+  margin-bottom: 3rem;
+  opacity: 0;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 4.75rem;
+  opacity: 0;
+}
+
+.scrollCue {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 32px;
+  background: var(--line-strong);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scrollLine::after {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--accent-cool);
+    animation: scrollDrip 2.2s ease-in-out infinite;
+  }
+}
+
+@keyframes scrollDrip {
+  0% {
+    top: -100%;
+  }
+  60%,
+  100% {
+    top: 100%;
+  }
+}
+

@@ -1,0 +1,10 @@
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 1.5rem var(--edge);
+}
+
+.text {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
