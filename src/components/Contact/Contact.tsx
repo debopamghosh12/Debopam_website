@@ -24,37 +24,45 @@ export default function Contact() {
           <h2 className="section-title">{contact.title}</h2>
         </div>
 
-        <span className={`${styles.eyebrow} mono`}>{contact.eyebrow}</span>
+        <div className={styles.layout}>
+          <div className={styles.leftCol}>
+            <span className={`${styles.eyebrow} mono`}>{contact.eyebrow}</span>
 
-        <div className={styles.card}>
-          <h3 className={styles.heading}>{contact.heading}</h3>
-          <p className={styles.supporting}>{contact.supporting}</p>
+            <div className={styles.card}>
+              <h3 className={styles.heading}>{contact.heading}</h3>
+              <p className={styles.supporting}>{contact.supporting}</p>
 
-          <div className={styles.channelList}>
-            {contact.channels.map((channel) => {
-              const Icon = CHANNEL_ICONS[channel.icon];
-              return (
-                <a
-                  key={channel.label}
-                  href={channel.href}
-                  className={styles.channel}
-                >
-                  <span className={styles.channelIcon}>
-                    <Icon width={18} height={18} />
-                  </span>
-                  <span className={styles.channelText}>
-                    <span className={styles.channelLabel}>{channel.label}</span>
-                    <span className={styles.channelDescription}>
-                      {channel.description}
-                    </span>
-                  </span>
-                  <span className={styles.channelArrow} aria-hidden="true">
-                    &#8599;
-                  </span>
-                </a>
-              );
-            })}
+              <div className={styles.channelList}>
+                {contact.channels.map((channel) => {
+                  const Icon = CHANNEL_ICONS[channel.icon];
+                  return (
+                    <a
+                      key={channel.label}
+                      href={channel.href}
+                      className={styles.channel}
+                    >
+                      <span className={styles.channelIcon}>
+                        <Icon width={18} height={18} />
+                      </span>
+                      <span className={styles.channelText}>
+                        <span className={styles.channelLabel}>
+                          {channel.label}
+                        </span>
+                        <span className={styles.channelDescription}>
+                          {channel.description}
+                        </span>
+                      </span>
+                      <span className={styles.channelArrow} aria-hidden="true">
+                        &#8599;
+                      </span>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
           </div>
+
+          <div className={styles.sceneCol} />
         </div>
       </div>
     </section>

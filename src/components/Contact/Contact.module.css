@@ -1,3 +1,30 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+.leftCol {
+  min-width: 0;
+}
+
+.sceneCol {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-height: 280px;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .sceneCol {
+    display: none;
+  }
+}
+
 .eyebrow {
   display: block;
   color: var(--text-dim);

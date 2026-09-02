@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { gsap } from "../../lib/gsap";
 import type { Theme } from "../../hooks/useTheme";
+import { readThemeColors } from "../../lib/threeColors";
 
 const HOVER_RADIUS_MULTIPLIER = 1.15;
 const POWER_UP_DURATION = 0.35;
@@ -15,17 +16,6 @@ type TowerSpec = {
   height: number;
   kind: TowerKind;
 };
-
-function readThemeColors() {
-  const styles = getComputedStyle(document.documentElement);
-  const read = (name: string, fallback: string) =>
-    new THREE.Color(styles.getPropertyValue(name).trim() || fallback);
-  return {
-    accentCool: read("--accent-cool", "#3fd9c7"),
-    accent: read("--accent", "#f2a93b"),
-    text: read("--text", "#edeef0"),
-  };
-}
 
 // Loose cluster on the platform: a couple of taller amber "core" towers
 // scattered among shorter teal ones, not clustered together.
