@@ -32,6 +32,7 @@
 
 .links {
   display: flex;
+  align-items: center;
   gap: clamp(1.25rem, 3vw, 2.5rem);
 }
 
@@ -47,6 +48,66 @@
 .links a:hover {
   color: var(--text);
   border-color: var(--accent-cool);
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  color: var(--text-dim);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.themeToggle:hover {
+  border-color: var(--accent-cool);
+  color: var(--text);
+}
+
+.iconStack {
+  position: relative;
+  width: 16px;
+  height: 16px;
+}
+
+.icon {
+  position: absolute;
+  inset: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.sun {
+  color: var(--accent);
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+}
+
+.moon {
+  color: var(--accent-cool);
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+:global(:root[data-theme="light"]) .sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+:global(:root[data-theme="light"]) .moon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .icon {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
 }
 
 @media (max-width: 640px) {

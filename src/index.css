@@ -17,6 +17,49 @@
   --max-width: 1280px;
 }
 
+:root[data-theme="light"] {
+  --bg: #f7f4ef;
+  --bg-elevated: #ffffff;
+  --accent: #c97a1e;
+  --accent-cool: #1b9c8a;
+  --text: #1a1712;
+  --text-dim: #6b6558;
+  --line: rgba(26, 23, 18, 0.08);
+  --line-strong: rgba(26, 23, 18, 0.18);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html,
+  body {
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+}
+
+/* Circular "wipe" reveal driven by the View Transitions API. The click
+   origin is set as --theme-toggle-x/y (viewport px) just before the
+   transition starts. Falls back to a manual opacity crossfade in
+   useTheme.ts for browsers without View Transitions support. */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-new(root) {
+    clip-path: circle(0% at var(--theme-toggle-x, 50%) var(--theme-toggle-y, 50%));
+    animation: theme-reveal 0.55s ease forwards;
+  }
+
+  @keyframes theme-reveal {
+    to {
+      clip-path: circle(
+        150% at var(--theme-toggle-x, 50%) var(--theme-toggle-y, 50%)
+      );
+    }
+  }
+}
+
 *,
 *::before,
 *::after {

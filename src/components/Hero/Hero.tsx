@@ -4,9 +4,11 @@ import HeroScene from "./HeroScene";
 import { hero } from "../../data/content";
 import { gsap } from "../../lib/gsap";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
+import { useTheme } from "../../hooks/useTheme";
 
 export default function Hero() {
   const reducedMotion = useReducedMotion();
+  const { theme } = useTheme();
   const eyebrowRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subheadRef = useRef<HTMLParagraphElement>(null);
@@ -93,7 +95,7 @@ export default function Hero() {
           </div>
         </div>
         <div className={styles.sphereCol}>
-          <HeroScene reducedMotion={reducedMotion} />
+          <HeroScene reducedMotion={reducedMotion} theme={theme} />
         </div>
       </div>
     </section>

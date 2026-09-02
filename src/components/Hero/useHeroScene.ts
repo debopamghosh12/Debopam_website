@@ -1,32 +1,42 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { gsap } from "../../lib/gsap";
-
-const ACCENT_COOL = 0x3fd9c7;
-const ACCENT = 0xf2a93b;
-const LINE_STRONG = 0xedeef0;
+import type { Theme } from "../../hooks/useTheme";
 
 const HOVER_RADIUS_MULTIPLIER = 1.15;
 const POWER_UP_DURATION = 0.35;
 const POWER_DOWN_DURATION = 0.55;
 
+type TowerKind = "teal" | "amber";
+
 type TowerSpec = {
   x: number;
   z: number;
   height: number;
-  colorHex: number;
+  kind: TowerKind;
 };
+
+function readThemeColors() {
+  const styles = getComputedStyle(document.documentElement);
+  const read = (name: string, fallback: string) =>
+    new THREE.Color(styles.getPropertyValue(name).trim() || fallback);
+  return {
+    accentCool: read("--accent-cool", "#3fd9c7"),
+    accent: read("--accent", "#f2a93b"),
+    text: read("--text", "#edeef0"),
+  };
+}
 
 // Loose cluster on the platform: a couple of taller amber "core" towers
 // scattered among shorter teal ones, not clustered together.
 const towerSpecs: TowerSpec[] = [
-  { x: -1.4, z: -1.0, height: 0.7, colorHex: ACCENT_COOL },
-  { x: -0.6, z: -1.3, height: 1.1, colorHex: ACCENT_COOL },
-  { x: 0.3, z: -0.7, height: 1.7, colorHex: ACCENT },
-  { x: 1.3, z: -1.1, height: 0.9, colorHex: ACCENT_COOL },
-  { x: -1.0, z: 0.9, height: 1.3, colorHex: ACCENT_COOL },
-  { x: 0.5, z: 1.1, height: 1.9, colorHex: ACCENT },
-  { x: 1.4, z: 0.6, height: 0.8, colorHex: ACCENT_COOL },
+  { x: -1.4, z: -1.0, height: 0.7, kind: "teal" },
+  { x: -0.6, z: -1.3, height: 1.1, kind: "teal" },
+  { x: 0.3, z: -0.7, height: 1.7, kind: "amber" },
+  { x: 1.3, z: -1.1, height: 0.9, kind: "teal" },
+  { x: -1.0, z: 0.9, height: 1.3, kind: "teal" },
+  { x: 0.5, z: 1.1, height: 1.9, kind: "amber" },
+  { x: 1.4, z: 0.6, height: 0.8, kind: "teal" },
 ];
 
 const TRACE_PAIRS: [number, number][] = [
@@ -40,7 +50,7 @@ const TRACE_PAIRS: [number, number][] = [
 
 const MARKER_TOWER_INDICES = [2, 5];
 
-function buildGrid(disposables: (() => void)[]) {
+function buildGrid(lineColor: THREE.Color, disposables: (() => void)[]) {
   const half = 2.3;
   const step = 0.5;
   const points: THREE.Vector3[] = [];
@@ -50,7 +60,7 @@ function buildGrid(disposables: (() => void)[]) {
   }
   const geometry = new THREE.BufferGeometry().setFromPoints(points);
   const material = new THREE.LineBasicMaterial({
-    color: LINE_STRONG,
+    color: lineColor,
     transparent: true,
     opacity: 0.1,
   });
@@ -58,10 +68,15 @@ function buildGrid(disposables: (() => void)[]) {
   return new THREE.LineSegments(geometry, material);
 }
 
-function buildTower(spec: TowerSpec, disposables: (() => void)[]) {
+function buildTower(
+  spec: TowerSpec,
+  colors: ReturnType<typeof readThemeColors>,
+  disposables: (() => void)[]
+) {
   const width = 0.4;
   const depth = 0.4;
-  const { height, colorHex } = spec;
+  const { height } = spec;
+  const colorHex = spec.kind === "amber" ? colors.accent : colors.accentCool;
 
   const parent = new THREE.Group();
   parent.position.set(spec.x, 0, spec.z);
@@ -130,6 +145,7 @@ function buildTower(spec: TowerSpec, disposables: (() => void)[]) {
 
 function buildMarker(
   tower: ReturnType<typeof buildTower>,
+  accentCool: THREE.Color,
   disposables: (() => void)[]
 ) {
   const topY = tower.height + 0.6;
@@ -138,7 +154,7 @@ function buildMarker(
     new THREE.Vector3(0, topY, 0),
   ]);
   const lineMat = new THREE.LineBasicMaterial({
-    color: ACCENT_COOL,
+    color: accentCool,
     transparent: true,
     opacity: 0.3,
   });
@@ -147,7 +163,7 @@ function buildMarker(
 
   const sphereGeo = new THREE.SphereGeometry(0.045, 8, 8);
   const sphereMat = new THREE.MeshBasicMaterial({
-    color: ACCENT_COOL,
+    color: accentCool,
     transparent: true,
     opacity: 0.8,
   });
@@ -163,7 +179,12 @@ function buildMarker(
   );
 }
 
-function buildTrace(a: TowerSpec, b: TowerSpec, disposables: (() => void)[]) {
+function buildTrace(
+  a: TowerSpec,
+  b: TowerSpec,
+  accentCool: THREE.Color,
+  disposables: (() => void)[]
+) {
   const points = [
     new THREE.Vector3(a.x, 0.01, a.z),
     new THREE.Vector3(b.x, 0.01, a.z),
@@ -171,7 +192,7 @@ function buildTrace(a: TowerSpec, b: TowerSpec, disposables: (() => void)[]) {
   ];
   const geometry = new THREE.BufferGeometry().setFromPoints(points);
   const material = new THREE.LineBasicMaterial({
-    color: ACCENT_COOL,
+    color: accentCool,
     transparent: true,
     opacity: 0.35,
   });
@@ -208,10 +229,10 @@ function pointAlongPath(
   }
 }
 
-function createPulse(colorHex: number, disposables: (() => void)[]) {
+function createPulse(color: THREE.Color, disposables: (() => void)[]) {
   const geometry = new THREE.SphereGeometry(0.045, 8, 8);
   const material = new THREE.MeshBasicMaterial({
-    color: colorHex,
+    color,
     transparent: true,
     opacity: 0.95,
   });
@@ -221,7 +242,8 @@ function createPulse(colorHex: number, disposables: (() => void)[]) {
 
 export function useHeroScene(
   canvasRef: React.RefObject<HTMLCanvasElement>,
-  reducedMotion: boolean
+  reducedMotion: boolean,
+  theme: Theme
 ) {
   const mouseRef = useRef({ x: 0, y: 0 });
 
@@ -230,6 +252,7 @@ export function useHeroScene(
     if (!canvas) return;
 
     const disposables: (() => void)[] = [];
+    const colors = readThemeColors();
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -253,16 +276,26 @@ export function useHeroScene(
     const group = new THREE.Group();
     scene.add(group);
 
-    group.add(buildGrid(disposables));
+    group.add(buildGrid(colors.text, disposables));
 
-    const towers = towerSpecs.map((spec) => buildTower(spec, disposables));
+    const towers = towerSpecs.map((spec) => buildTower(spec, colors, disposables));
     towers.forEach((t) => group.add(t.parent));
-    MARKER_TOWER_INDICES.forEach((i) => buildMarker(towers[i], disposables));
+    MARKER_TOWER_INDICES.forEach((i) =>
+      buildMarker(towers[i], colors.accentCool, disposables)
+    );
 
     const traces = TRACE_PAIRS.map(([a, b], i) => {
-      const trace = buildTrace(towerSpecs[a], towerSpecs[b], disposables);
+      const trace = buildTrace(
+        towerSpecs[a],
+        towerSpecs[b],
+        colors.accentCool,
+        disposables
+      );
       group.add(trace.line);
-      const pulse = createPulse(i % 2 === 0 ? ACCENT : ACCENT_COOL, disposables);
+      const pulse = createPulse(
+        i % 2 === 0 ? colors.accent : colors.accentCool,
+        disposables
+      );
       group.add(pulse);
       return { ...trace, pulse, speed: 0.25 + Math.random() * 0.2, phase: Math.random() };
     });
@@ -400,5 +433,5 @@ export function useHeroScene(
       disposables.forEach((dispose) => dispose());
       renderer.dispose();
     };
-  }, [canvasRef, reducedMotion]);
+  }, [canvasRef, reducedMotion, theme]);
 }
