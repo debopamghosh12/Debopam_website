@@ -72,14 +72,18 @@ export const work = {
     {
       name: "Sanvix",
       tag: "SIH 2024 · Finalist",
-      description: "Full-stack application, backend lead. SIH 2024 institutional finalist.",
-      tags: ["FastAPI", "Supabase", "React"],
+      description:
+        "FastAPI backend with 8+ REST endpoints (auth, medicine search, prescription scanning, subscriptions, payments) on Supabase PostgreSQL, as backend lead in a 5-member hackathon team. Built an AI-assisted prescription-scanning pipeline using fuzzy string matching to resolve OCR-extracted medicine names, plus an automated refill-reminder engine. Secured multi-patient access with Supabase Auth + Row-Level Security.",
+      metric: "8+ REST endpoints · 80%+ match-confidence threshold",
+      tags: ["FastAPI", "Supabase", "PostgreSQL", "React 19"],
     },
     {
       name: "Code Arena",
       tag: "Real-time",
-      description: "Competitive coding platform with sandboxed remote code execution.",
-      tags: ["Node.js", "Express", "Socket.io"],
+      description:
+        "RESTful backend managing 300+ algorithm challenges with automated test-case validation and difficulty scaling, plus a sandboxed remote code execution engine for C++/Python submissions. Real-time collaboration via Socket.io with sub-100ms sync, deployed on Render with automated CI/CD health-check cron jobs.",
+      metric: "300+ challenges · sub-100ms sync · 99% uptime",
+      tags: ["Node.js", "Express", "Socket.io", "MongoDB Atlas", "React.js"],
     },
     {
       name: "GreenLedger",
@@ -91,21 +95,54 @@ export const work = {
     {
       name: "AssetPulse",
       tag: "Systems",
-      description: "Asset management system on a Spring Boot/JPA backend.",
-      tags: ["Spring Boot", "JPA"],
+      description:
+        "Production-ready REST API (Spring Boot + Spring Data JPA) managing assets with a PostgreSQL backend and UUID-based entity IDs. Layered Controller → Service → Repository architecture following SOLID principles, packaged as a runnable JAR via Maven with JUnit test coverage.",
+      tags: ["Java 21", "Spring Boot", "Spring Data JPA", "PostgreSQL", "Maven"],
     },
   ] satisfies Project[],
 };
 
-export const contact = {
+export type Achievement = {
+  label: string;
+  value: string;
+};
+
+export const achievements = {
   index: "04",
+  title: "Achievements & Certifications",
+  items: [
+    {
+      label: "Smart India Hackathon 2024",
+      value:
+        "Institutional Finalist — selected and nominated by Academy of Technology among top teams for National Finals consideration.",
+    },
+    {
+      label: "Amazon ML Challenge 2025",
+      value: "Ranked 1309 out of 8,000+ participants — top 16% globally.",
+    },
+    {
+      label: "Competitive Programming",
+      value:
+        "Codeforces participant, max rating 1223. Consistent practice in data structures, algorithms, and debugging logic-heavy solutions.",
+    },
+    {
+      label: "Machine Learning Specialization",
+      value: "Certification issued by Andrew Ng, via Coursera.",
+    },
+  ] satisfies Achievement[],
+};
+
+export const contact = {
+  index: "05",
   title: "Contact",
   headline: "Let's talk about what you're building.",
   supporting: "Open to software engineering roles starting 2027 — reach out any time.",
   links: [
-    { label: "Email", href: "mailto:placeholder@example.com" },
-    { label: "GitHub", href: "https://github.com/placeholder" },
-    { label: "LinkedIn", href: "https://linkedin.com/in/placeholder" },
+    { label: "Email", href: "mailto:debopamghosh2004@gmail.com" },
+    { label: "GitHub", href: "https://github.com/debopamghosh12" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/debopam-ghosh12/" },
+    { label: "Codeforces", href: "https://codeforces.com/profile/Terminator12" },
+    { label: "LeetCode", href: "https://leetcode.com/u/Debopam_/" },
     { label: "Resume", href: "#" },
   ],
 };
