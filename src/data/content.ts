@@ -143,7 +143,7 @@ export const contact = {
     { label: "LinkedIn", href: "https://www.linkedin.com/in/debopam-ghosh12/" },
     { label: "Codeforces", href: "https://codeforces.com/profile/Terminator12" },
     { label: "LeetCode", href: "https://leetcode.com/u/Debopam_/" },
-    { label: "Resume", href: "#" },
+    { label: "Resume", href: "/resume.pdf" },
   ],
 };
 
