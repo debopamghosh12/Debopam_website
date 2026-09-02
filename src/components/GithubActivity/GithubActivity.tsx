@@ -81,7 +81,8 @@ export default function GithubActivity() {
     let cancelled = false;
 
     fetch(
-      `https://github-contributions-api.jogruber.de/v4/${githubActivity.username}?y=last`
+      `https://github-contributions-api.jogruber.de/v4/${githubActivity.username}?y=last`,
+      { cache: "no-store" }
     )
       .then((res) => {
         if (!res.ok) throw new Error(`Request failed: ${res.status}`);
@@ -162,6 +163,10 @@ export default function GithubActivity() {
                 <span className="mono">More</span>
               </div>
             </div>
+            <p className={`${styles.attribution} mono`}>
+              via github-contributions-api.jogruber.de — may lag a few minutes
+              behind GitHub's own live count
+            </p>
           </>
         )}
       </div>
