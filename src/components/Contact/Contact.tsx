@@ -3,6 +3,13 @@ import styles from "./Contact.module.css";
 import { contact } from "../../data/content";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
+import { GithubIcon, MailIcon, LinkedinIcon } from "../icons/Icons";
+
+const CHANNEL_ICONS = {
+  github: GithubIcon,
+  mail: MailIcon,
+  linkedin: LinkedinIcon,
+};
 
 export default function Contact() {
   const reducedMotion = useReducedMotion();
@@ -16,16 +23,37 @@ export default function Contact() {
           <span className="section-index mono">{contact.index} —</span>
           <h2 className="section-title">{contact.title}</h2>
         </div>
-        <div className={styles.wrap}>
-          <h3 className={styles.headline}>{contact.headline}</h3>
+
+        <span className={`${styles.eyebrow} mono`}>{contact.eyebrow}</span>
+
+        <div className={styles.card}>
+          <h3 className={styles.heading}>{contact.heading}</h3>
           <p className={styles.supporting}>{contact.supporting}</p>
-          <div className={styles.links}>
-            {contact.links.map((link) => (
-              <a key={link.label} className={styles.link} href={link.href}>
-                {link.label}
-                <span className={`${styles.arrow} mono`}>&#8599;</span>
-              </a>
-            ))}
+
+          <div className={styles.channelList}>
+            {contact.channels.map((channel) => {
+              const Icon = CHANNEL_ICONS[channel.icon];
+              return (
+                <a
+                  key={channel.label}
+                  href={channel.href}
+                  className={styles.channel}
+                >
+                  <span className={styles.channelIcon}>
+                    <Icon width={18} height={18} />
+                  </span>
+                  <span className={styles.channelText}>
+                    <span className={styles.channelLabel}>{channel.label}</span>
+                    <span className={styles.channelDescription}>
+                      {channel.description}
+                    </span>
+                  </span>
+                  <span className={styles.channelArrow} aria-hidden="true">
+                    &#8599;
+                  </span>
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>

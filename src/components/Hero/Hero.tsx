@@ -5,6 +5,13 @@ import { hero } from "../../data/content";
 import { gsap } from "../../lib/gsap";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { useTheme } from "../../hooks/useTheme";
+import { FileIcon, MailIcon, GithubIcon, LinkedinIcon } from "../icons/Icons";
+
+const SOCIAL_ICONS = {
+  linkedin: LinkedinIcon,
+  github: GithubIcon,
+  mail: MailIcon,
+};
 
 export default function Hero() {
   const reducedMotion = useReducedMotion();
@@ -85,9 +92,36 @@ export default function Hero() {
             <a className="btn btn-primary" href={hero.ctaPrimary.href}>
               {hero.ctaPrimary.label}
             </a>
-            <a className="btn btn-ghost" href={hero.ctaGhost.href}>
-              {hero.ctaGhost.label}
-            </a>
+            <div className={styles.actionRow}>
+              <a
+                className={`btn btn-primary ${styles.actionPill}`}
+                href={hero.actions.resume.href}
+              >
+                <FileIcon width={14} height={14} />
+                {hero.actions.resume.label}
+              </a>
+              <a
+                className={`btn btn-ghost ${styles.actionPill}`}
+                href={hero.actions.contact.href}
+              >
+                <MailIcon width={14} height={14} />
+                {hero.actions.contact.label}
+              </a>
+              <span className={styles.actionDivider} aria-hidden="true" />
+              {hero.actions.social.map((item) => {
+                const Icon = SOCIAL_ICONS[item.icon];
+                return (
+                  <a
+                    key={item.label}
+                    className={styles.iconButton}
+                    href={item.href}
+                    aria-label={item.label}
+                  >
+                    <Icon width={16} height={16} />
+                  </a>
+                );
+              })}
+            </div>
           </div>
           <div ref={scrollCueRef} className={styles.scrollCue}>
             <span className={styles.scrollLine} aria-hidden="true" />

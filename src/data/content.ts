@@ -8,6 +8,13 @@ export const nav = {
   ],
 };
 
+export const social = {
+  github: "https://github.com/debopamghosh12",
+  linkedin: "https://www.linkedin.com/in/debopam-ghosh12/",
+  email: "mailto:debopamghosh2004@gmail.com",
+  resume: "/resume.pdf",
+};
+
 export const hero = {
   eyebrow: "open to software engineering roles — 2027",
   headlinePre: "I build the ",
@@ -16,7 +23,15 @@ export const hero = {
   subhead:
     "Backend-focused software engineer working across APIs, data pipelines, and ML-adjacent systems. Final-year CSBS student at Academy of Technology, Kolkata.",
   ctaPrimary: { label: "See the work", href: "#work" },
-  ctaGhost: { label: "Get in touch", href: "#contact" },
+  actions: {
+    resume: { label: "Resume", href: social.resume },
+    contact: { label: "Contact", href: "#contact" },
+    social: [
+      { icon: "linkedin" as const, label: "LinkedIn", href: social.linkedin },
+      { icon: "github" as const, label: "GitHub", href: social.github },
+      { icon: "mail" as const, label: "Email", href: social.email },
+    ],
+  },
 };
 
 export const about = {
@@ -132,19 +147,40 @@ export const achievements = {
   ] satisfies Achievement[],
 };
 
+export type ContactChannel = {
+  icon: "github" | "mail" | "linkedin";
+  label: string;
+  description: string;
+  href: string;
+};
+
 export const contact = {
   index: "05",
   title: "Contact",
-  headline: "Let's talk about what you're building.",
-  supporting: "Open to software engineering roles starting 2027 — reach out any time.",
-  links: [
-    { label: "Email", href: "mailto:debopamghosh2004@gmail.com" },
-    { label: "GitHub", href: "https://github.com/debopamghosh12" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/debopam-ghosh12/" },
-    { label: "Codeforces", href: "https://codeforces.com/profile/Terminator12" },
-    { label: "LeetCode", href: "https://leetcode.com/u/Debopam_/" },
-    { label: "Resume", href: "/resume.pdf" },
-  ],
+  eyebrow: "Let's work together",
+  heading: "Get in Touch",
+  supporting:
+    "Open to opportunities and always happy to talk about my work — pick whichever's easiest.",
+  channels: [
+    {
+      icon: "github",
+      label: "GitHub",
+      description: "Repos, contributions & open source",
+      href: social.github,
+    },
+    {
+      icon: "mail",
+      label: "debopamghosh2004@gmail.com",
+      description: "Direct email",
+      href: social.email,
+    },
+    {
+      icon: "linkedin",
+      label: "Connect on LinkedIn",
+      description: "Updates & professional background",
+      href: social.linkedin,
+    },
+  ] satisfies ContactChannel[],
 };
 
 export const footer = {

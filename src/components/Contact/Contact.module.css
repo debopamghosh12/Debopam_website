@@ -1,61 +1,107 @@
-.wrap {
-  max-width: 40rem;
+.eyebrow {
+  display: block;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
-.headline {
-  font-size: clamp(1.8rem, 4vw, 2.75rem);
+.card {
+  max-width: 34rem;
+  border: 1px solid var(--line-strong);
+  background: var(--bg-elevated);
+  border-radius: 4px;
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.heading {
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
   letter-spacing: -0.01em;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .supporting {
   color: var(--text-dim);
-  font-size: 1.02rem;
-  margin-bottom: 2.5rem;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  margin-bottom: 2rem;
 }
 
-.links {
+.channelList {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0;
-  border-top: 1px solid var(--line);
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.link {
-  flex: 1 1 auto;
-  min-width: 8rem;
-  padding: 1.1rem 0.25rem;
-  border-bottom: 1px solid var(--line);
+.channel {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  color: var(--text);
-  transition: color 0.2s ease;
+  gap: 0.85rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: transparent;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.link + .link {
-  border-left: 1px solid var(--line);
-  padding-left: 1.25rem;
+.channel:hover {
+  border-color: var(--accent-cool);
+  background: color-mix(in srgb, var(--accent-cool) 6%, transparent);
 }
 
-.link:hover {
-  color: var(--accent-cool);
-}
-
-.arrow {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
+.channelIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
   color: var(--text-dim);
 }
 
-@media (max-width: 640px) {
-  .links {
-    flex-direction: column;
-  }
-  .link + .link {
-    border-left: none;
-    padding-left: 0.25rem;
+.channel:hover .channelIcon {
+  color: var(--accent-cool);
+}
+
+.channelText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.channelLabel {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--text);
+  overflow-wrap: break-word;
+}
+
+.channelDescription {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.channelArrow {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.channel:hover .channelArrow {
+  color: var(--accent-cool);
+  transform: translate(1px, -1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .channel,
+  .channelIcon,
+  .channelArrow {
+    transition: none;
   }
 }
