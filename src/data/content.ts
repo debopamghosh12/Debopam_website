@@ -168,6 +168,10 @@ export const achievements = {
       value: "Ranked 1309 out of 8,000+ participants — top 16% globally.",
     },
     {
+      label: "TCS CodeVita Season 13",
+      value: "Secured a global rank of 12,233, recognized for exceptional coding skills.",
+    },
+    {
       label: "Competitive Programming",
       value:
         "Codeforces participant, max rating 1223. Consistent practice in data structures, algorithms, and debugging logic-heavy solutions.",

@@ -18,14 +18,14 @@
 }
 
 :root[data-theme="light"] {
-  --bg: #f7f4ef;
-  --bg-elevated: #ffffff;
+  --bg: #ede7dc;
+  --bg-elevated: #f5f0e6;
   --accent: #c97a1e;
   --accent-cool: #1b9c8a;
   --text: #1a1712;
   --text-dim: #6b6558;
-  --line: rgba(26, 23, 18, 0.08);
-  --line-strong: rgba(26, 23, 18, 0.18);
+  --line: rgba(26, 23, 18, 0.1);
+  --line-strong: rgba(26, 23, 18, 0.22);
 }
 
 @media (prefers-reduced-motion: no-preference) {
