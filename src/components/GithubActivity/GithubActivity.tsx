@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./GithubActivity.module.css";
-import { githubActivity } from "../../data/content";
+import { githubActivityContent } from "../../data/content";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 
@@ -81,7 +81,7 @@ export default function GithubActivity() {
     let cancelled = false;
 
     fetch(
-      `https://github-contributions-api.jogruber.de/v4/${githubActivity.username}?y=last`,
+      `https://github-contributions-api.jogruber.de/v4/${githubActivityContent.username}?y=last`,
       { cache: "no-store" }
     )
       .then((res) => {
@@ -107,8 +107,8 @@ export default function GithubActivity() {
     <section id="github-activity" className="section">
       <div className="container">
         <div ref={headerRef} className="section-header">
-          <span className="section-index mono">{githubActivity.index} —</span>
-          <h2 className="section-title">{githubActivity.title}</h2>
+          <span className="section-index mono">{githubActivityContent.index} —</span>
+          <h2 className="section-title">{githubActivityContent.title}</h2>
         </div>
 
         {state.status === "loading" && (

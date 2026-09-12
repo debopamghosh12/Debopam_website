@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from "react";
 import styles from "./Hero.module.css";
 import HeroScene from "./HeroScene";
-import { hero } from "../../data/content";
+import { heroContent, contactLinks, type ContactLink } from "../../data/content";
 import { gsap } from "../../lib/gsap";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { useTheme } from "../../hooks/useTheme";
@@ -12,6 +12,15 @@ const SOCIAL_ICONS = {
   github: GithubIcon,
   mail: MailIcon,
 };
+
+// The hero's compact icon row reuses contactLinks (the same data as the
+// Contact section's channel list) for each URL, but keeps its own fixed
+// order and short aria-labels suited to an icon-only button.
+const HERO_ICON_ORDER: { icon: ContactLink["icon"]; label: string }[] = [
+  { icon: "linkedin", label: "LinkedIn" },
+  { icon: "github", label: "GitHub" },
+  { icon: "mail", label: "Email" },
+];
 
 export default function Hero() {
   const reducedMotion = useReducedMotion();
@@ -78,44 +87,46 @@ export default function Hero() {
         <div className={styles.textCol}>
           <div ref={eyebrowRef} className={styles.eyebrow}>
             <span className={styles.statusDot} aria-hidden="true" />
-            <span>{hero.eyebrow}</span>
+            <span>{heroContent.eyebrow}</span>
           </div>
           <h1 ref={headlineRef} className={styles.headline}>
-            {hero.headlinePre}
-            <span className={styles.accent}>{hero.headlineAccent}</span>
-            {hero.headlinePost}
+            {heroContent.headlinePre}
+            <span className={styles.accent}>{heroContent.headlineAccent}</span>
+            {heroContent.headlinePost}
           </h1>
           <p ref={subheadRef} className={styles.subhead}>
-            {hero.subhead}
+            {heroContent.subhead}
           </p>
           <div ref={ctasRef} className={styles.ctas}>
-            <a className="btn btn-primary" href={hero.ctaPrimary.href}>
-              {hero.ctaPrimary.label}
+            <a className="btn btn-primary" href={heroContent.ctaPrimary.href}>
+              {heroContent.ctaPrimary.label}
             </a>
             <div className={styles.actionRow}>
               <a
                 className={`btn btn-primary ${styles.actionPill}`}
-                href={hero.actions.resume.href}
+                href={heroContent.resumeAction.href}
               >
                 <FileIcon width={14} height={14} />
-                {hero.actions.resume.label}
+                {heroContent.resumeAction.label}
               </a>
               <a
                 className={`btn btn-ghost ${styles.actionPill}`}
-                href={hero.actions.contact.href}
+                href={heroContent.contactAction.href}
               >
                 <MailIcon width={14} height={14} />
-                {hero.actions.contact.label}
+                {heroContent.contactAction.label}
               </a>
               <span className={styles.actionDivider} aria-hidden="true" />
-              {hero.actions.social.map((item) => {
-                const Icon = SOCIAL_ICONS[item.icon];
+              {HERO_ICON_ORDER.map(({ icon, label }) => {
+                const link = contactLinks.find((l) => l.icon === icon);
+                if (!link) return null;
+                const Icon = SOCIAL_ICONS[icon];
                 return (
                   <a
-                    key={item.label}
+                    key={icon}
                     className={styles.iconButton}
-                    href={item.href}
-                    aria-label={item.label}
+                    href={link.url}
+                    aria-label={label}
                   >
                     <Icon width={16} height={16} />
                   </a>

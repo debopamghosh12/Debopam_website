@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import styles from "./Work.module.css";
-import { work } from "../../data/content";
+import { workContent, projects } from "../../data/content";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { useStaggerReveal } from "../../hooks/useStaggerReveal";
@@ -20,12 +20,12 @@ export default function Work() {
     <section id="work" className="section">
       <div className="container">
         <div ref={headerRef} className="section-header">
-          <span className="section-index mono">{work.index} —</span>
-          <h2 className="section-title">{work.title}</h2>
+          <span className="section-index mono">{workContent.index} —</span>
+          <h2 className="section-title">{workContent.title}</h2>
         </div>
         <div ref={pipelineRef} className={styles.pipeline}>
           <div className={styles.spine} aria-hidden="true" />
-          {work.projects.map((project) => (
+          {projects.map((project) => (
             <article key={project.name} className={styles.module}>
               <div className={styles.marker}>
                 <span
@@ -51,12 +51,12 @@ export default function Work() {
                     </span>
                   ))}
                 </div>
-                {project.links && (
+                {(project.githubUrl || project.demoUrl) && (
                   <div className={styles.linkRow}>
-                    {project.links.github && (
+                    {project.githubUrl && (
                       <a
                         className={`btn btn-ghost ${styles.linkBtn}`}
-                        href={project.links.github}
+                        href={project.githubUrl}
                         target="_blank"
                         rel="noreferrer"
                       >
@@ -64,10 +64,10 @@ export default function Work() {
                         View code
                       </a>
                     )}
-                    {project.links.demo && (
+                    {project.demoUrl && (
                       <a
                         className={`btn btn-ghost ${styles.linkBtn}`}
-                        href={project.links.demo}
+                        href={project.demoUrl}
                         target="_blank"
                         rel="noreferrer"
                       >

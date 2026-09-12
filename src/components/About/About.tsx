@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import styles from "./About.module.css";
-import { about } from "../../data/content";
+import { aboutContent } from "../../data/content";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 
@@ -24,17 +24,17 @@ export default function About() {
       </div>
       <div className={`container ${styles.contentLayer}`}>
         <div ref={headerRef} className="section-header">
-          <span className="section-index mono">{about.index} —</span>
-          <h2 className="section-title">{about.title}</h2>
+          <span className="section-index mono">{aboutContent.index} —</span>
+          <h2 className="section-title">{aboutContent.title}</h2>
         </div>
         <div className={styles.grid}>
           <div className={styles.paragraphs}>
-            {about.paragraphs.map((p, i) => (
+            {aboutContent.paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </div>
           <ul className={styles.facts}>
-            {about.facts.map((fact, i) => {
+            {aboutContent.facts.map((fact, i) => {
               const timing = dotTiming(i);
               return (
                 <li key={fact.label} className={styles.fact}>

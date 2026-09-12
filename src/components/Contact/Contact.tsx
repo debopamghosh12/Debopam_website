@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import styles from "./Contact.module.css";
-import { contact } from "../../data/content";
+import { contactContent, contactLinks } from "../../data/content";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { GithubIcon, MailIcon, LinkedinIcon } from "../icons/Icons";
@@ -20,25 +20,25 @@ export default function Contact() {
     <section id="contact" className="section">
       <div className="container">
         <div ref={headerRef} className="section-header">
-          <span className="section-index mono">{contact.index} —</span>
-          <h2 className="section-title">{contact.title}</h2>
+          <span className="section-index mono">{contactContent.index} —</span>
+          <h2 className="section-title">{contactContent.title}</h2>
         </div>
 
         <div className={styles.layout}>
           <div className={styles.leftCol}>
-            <span className={`${styles.eyebrow} mono`}>{contact.eyebrow}</span>
+            <span className={`${styles.eyebrow} mono`}>{contactContent.eyebrow}</span>
 
             <div className={styles.card}>
-              <h3 className={styles.heading}>{contact.heading}</h3>
-              <p className={styles.supporting}>{contact.supporting}</p>
+              <h3 className={styles.heading}>{contactContent.heading}</h3>
+              <p className={styles.supporting}>{contactContent.supporting}</p>
 
               <div className={styles.channelList}>
-                {contact.channels.map((channel) => {
+                {contactLinks.map((channel) => {
                   const Icon = CHANNEL_ICONS[channel.icon];
                   return (
                     <a
                       key={channel.label}
-                      href={channel.href}
+                      href={channel.url}
                       className={styles.channel}
                     >
                       <span className={styles.channelIcon}>
