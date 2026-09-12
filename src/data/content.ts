@@ -69,12 +69,13 @@ export type Project = {
   description: string;
   metric?: string;
   tags: string[];
+  links?: {
+    github?: string;
+    demo?: string;
+  };
 };
 
-export const work = {
-  index: "03",
-  title: "Work",
-  projects: [
+const workProjects: Project[] = [
     {
       name: "MedCare Pharma",
       tag: "Flagship · Hackathon",
@@ -83,6 +84,9 @@ export const work = {
         "A pharma supply-chain platform combining demand-sensing/replenishment planning with autonomous procure-to-pay. Built for the Cognizant NPN Hackathon as integration lead.",
       metric: "XGBRegressor forecast model · 14.2% MAPE · 3-way invoice matching at 2% tolerance.",
       tags: ["FastAPI", "React/Vite", "XGBoost", "OCR", "Docker"],
+      links: {
+        github: "https://github.com/debopamghosh12/Cognizant_Hackathon",
+      },
     },
     {
       name: "Sanvix",
@@ -91,6 +95,9 @@ export const work = {
         "FastAPI backend with 8+ REST endpoints (auth, medicine search, prescription scanning, subscriptions, payments) on Supabase PostgreSQL, as backend lead in a 5-member hackathon team. Built an AI-assisted prescription-scanning pipeline using fuzzy string matching to resolve OCR-extracted medicine names, plus an automated refill-reminder engine. Secured multi-patient access with Supabase Auth + Row-Level Security.",
       metric: "8+ REST endpoints · 80%+ match-confidence threshold",
       tags: ["FastAPI", "Supabase", "PostgreSQL", "React 19"],
+      links: {
+        github: "https://github.com/debopamghosh12/Sanvix_hacksprite",
+      },
     },
     {
       name: "Code Arena",
@@ -99,13 +106,20 @@ export const work = {
         "RESTful backend managing 300+ algorithm challenges with automated test-case validation and difficulty scaling, plus a sandboxed remote code execution engine for C++/Python submissions. Real-time collaboration via Socket.io with sub-100ms sync, deployed on Render with automated CI/CD health-check cron jobs.",
       metric: "300+ challenges · sub-100ms sync · 99% uptime",
       tags: ["Node.js", "Express", "Socket.io", "MongoDB Atlas", "React.js"],
+      links: {
+        github: "https://github.com/debopamghosh12/CodeArena",
+      },
     },
     {
-      name: "GreenLedger",
-      tag: "Hackathon team",
+      name: "EvidenceChain",
+      tag: "Blockchain · Hackathon",
       description:
-        "Estimates carbon footprint from bank statement data via an LLM API behind a FastAPI backend.",
-      tags: ["FastAPI", "LLM API"],
+        "A forensic evidence management backend combining off-chain metadata storage on IPFS with an on-chain asset ledger on Hyperledger Fabric — built to keep a tamper-evident record of evidence handling from collection through release. Tracks evidence through a five-stage custody lifecycle (Collected → Processing → Analyzed → Archived → Released), logging every transfer between officers with a timestamp against the record, plus search and filtering by case ID, officer, status, date range, and full-text query, with pagination and bulk create/delete endpoints. Only the IPFS content pointer (CID) is written to the Fabric ledger, keeping on-chain storage lean while preserving verifiability.",
+      metric: "5-stage custody lifecycle · IPFS-backed metadata · Hyperledger Fabric ledger",
+      tags: ["Node.js", "Express", "Hyperledger Fabric", "IPFS", "Blockchain"],
+      links: {
+        github: "https://github.com/debopamghosh12/Crime_evidence_backend",
+      },
     },
     {
       name: "AssetPulse",
@@ -113,8 +127,26 @@ export const work = {
       description:
         "Production-ready REST API (Spring Boot + Spring Data JPA) managing assets with a PostgreSQL backend and UUID-based entity IDs. Layered Controller → Service → Repository architecture following SOLID principles, packaged as a runnable JAR via Maven with JUnit test coverage.",
       tags: ["Java 21", "Spring Boot", "Spring Data JPA", "PostgreSQL", "Maven"],
+      links: {
+        github: "https://github.com/debopamghosh12/AssetPulse",
+      },
     },
-  ] satisfies Project[],
+    {
+      name: "VectorDB_personal",
+      tag: "Personal project",
+      description:
+        "A vector database and semantic search engine built from scratch — implements cosine similarity search over embeddings generated with Sentence-Transformers, with PCA-based dimensionality reduction for visualizing the vector space, wrapped in a Streamlit interface.",
+      tags: ["NumPy", "Sentence-Transformers", "PCA", "Streamlit", "Python"],
+      links: {
+        github: "https://github.com/debopamghosh12/VectorDB_personal",
+      },
+    },
+];
+
+export const work = {
+  index: "03",
+  title: "Work",
+  projects: workProjects,
 };
 
 export type Achievement = {

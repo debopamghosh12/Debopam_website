@@ -96,3 +96,16 @@
   border: 1px solid var(--line);
   padding: 0.3rem 0.6rem;
 }
+
+.linkRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.linkBtn {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.78rem;
+  gap: 0.45rem;
+}

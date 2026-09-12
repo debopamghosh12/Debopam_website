@@ -4,6 +4,7 @@ import { work } from "../../data/content";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { useStaggerReveal } from "../../hooks/useStaggerReveal";
+import { GithubIcon } from "../icons/Icons";
 
 export default function Work() {
   const reducedMotion = useReducedMotion();
@@ -50,6 +51,31 @@ export default function Work() {
                     </span>
                   ))}
                 </div>
+                {project.links && (
+                  <div className={styles.linkRow}>
+                    {project.links.github && (
+                      <a
+                        className={`btn btn-ghost ${styles.linkBtn}`}
+                        href={project.links.github}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <GithubIcon width={13} height={13} />
+                        View code
+                      </a>
+                    )}
+                    {project.links.demo && (
+                      <a
+                        className={`btn btn-ghost ${styles.linkBtn}`}
+                        href={project.links.demo}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Live demo
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             </article>
           ))}
