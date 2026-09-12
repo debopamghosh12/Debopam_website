@@ -45,7 +45,7 @@ export const about = {
   facts: [
     { label: "Institution", value: "Academy of Technology, Kolkata" },
     { label: "Program", value: "CSBS · Class of 2027" },
-    { label: "Based in", value: "Haldia, West Bengal" },
+    { label: "Based in", value: "Kolkata, West Bengal" },
     { label: "Focus", value: "Backend systems · ML-adjacent infra" },
   ],
 };
