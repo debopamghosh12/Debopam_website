@@ -97,7 +97,7 @@ export const stackIcons: StackIcon[] = [
   { name: "TypeScript", iconKey: "siTypescript" },
   { name: "JavaScript", iconKey: "siJavascript" },
   { name: "Python", iconKey: "siPython" },
-  { name: "Java", iconKey: "siOpenjdk" },
+  { name: "Java", iconKey: "deviconJava" },
   { name: "C++", iconKey: "siCplusplus" },
   { name: "Node.js", iconKey: "siNodedotjs" },
   { name: "React", iconKey: "siReact" },
