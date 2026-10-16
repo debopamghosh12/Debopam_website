@@ -61,7 +61,7 @@ export const aboutContent = {
   paragraphs: [
     "I'm a backend-first, systems-minded engineer in my final year of a CSBS program at Academy of Technology, Kolkata. I care more about how a system behaves under load, bad data, and edge cases than how it looks — the interesting problems live in the plumbing.",
     "Most of my work sits across FastAPI, Spring Boot, and Node.js/Express, building APIs and data pipelines that other things depend on. Over the last year that's pulled me increasingly into ML-adjacent territory — forecasting, classification, and the infrastructure needed to serve those models reliably.",
-    "This year I was integration lead on MedCare Pharma, a full pharma supply-chain platform built for the Cognizant NPN Hackathon, and I rebuilt my final-year project, BlockEvidence, as a Spring Boot backend on a real Hyperledger Fabric ledger with per-user identities and envelope encryption.",
+    "This year I was integration lead on MedCare Pharma, a full pharma supply-chain platform, and I rebuilt my final-year project, BlockEvidence, as a Spring Boot backend on a real Hyperledger Fabric ledger with per-user identities and envelope encryption.",
     "Lately I've been contributing to open source data tooling — fixing change-data-capture bugs in Kestra's Debezium plugin and building shared embedding infrastructure for Filament's vector-database sinks.",
   ],
   facts: [
@@ -157,10 +157,10 @@ export type Project = {
 export const projects: Project[] = [
   {
     name: "MedCare Pharma",
-    tag: "Flagship · Hackathon",
+    tag: "Flagship · Supply chain",
     flagship: true,
     description:
-      "A pharma supply-chain platform combining demand-sensing/replenishment planning with autonomous procure-to-pay. Built for the Cognizant NPN Hackathon as integration lead.",
+      "An end-to-end pharma supply-chain platform that combines demand-sensing and replenishment planning with autonomous procure-to-pay. Built as integration lead, wiring forecasting, expiry-aware stock allocation, supplier scoring, and OCR-based invoice processing into one working system.",
     metric: "XGBRegressor forecast model · 14.2% MAPE · 3-way invoice matching at 2% tolerance.",
     tags: ["FastAPI", "React/Vite", "XGBoost", "OCR", "Docker"],
     githubUrl: "https://github.com/debopamghosh12/Cognizant_Hackathon",
