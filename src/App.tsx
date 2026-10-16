@@ -4,6 +4,7 @@ import About from "./components/About/About";
 import Stack from "./components/Stack/Stack";
 import GithubActivity from "./components/GithubActivity/GithubActivity";
 import Work from "./components/Work/Work";
+import OpenSource from "./components/OpenSource/OpenSource";
 import Achievements from "./components/Achievements/Achievements";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
@@ -18,6 +19,7 @@ function App() {
         <Stack />
         <GithubActivity />
         <Work />
+        <OpenSource />
         <Achievements />
         <Contact />
       </main>

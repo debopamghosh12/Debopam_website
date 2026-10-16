@@ -29,6 +29,7 @@ export const nav = {
     { label: "About", href: "#about" },
     { label: "Stack", href: "#stack" },
     { label: "Work", href: "#work" },
+    { label: "Open Source", href: "#open-source" },
     { label: "Contact", href: "#contact" },
   ],
 };
@@ -60,7 +61,8 @@ export const aboutContent = {
   paragraphs: [
     "I'm a backend-first, systems-minded engineer in my final year of a CSBS program at Academy of Technology, Kolkata. I care more about how a system behaves under load, bad data, and edge cases than how it looks — the interesting problems live in the plumbing.",
     "Most of my work sits across FastAPI, Spring Boot, and Node.js/Express, building APIs and data pipelines that other things depend on. Over the last year that's pulled me increasingly into ML-adjacent territory — forecasting, classification, and the infrastructure needed to serve those models reliably.",
-    "Most recently I was integration lead on a full pharma supply-chain platform built for a hackathon, wiring together demand forecasting, procurement automation, and invoice matching into a single working system under a hard deadline.",
+    "This year I was integration lead on MedCare Pharma, a full pharma supply-chain platform built for the Cognizant NPN Hackathon, and I rebuilt my final-year project, BlockEvidence, as a Spring Boot backend on a real Hyperledger Fabric ledger with per-user identities and envelope encryption.",
+    "Lately I've been contributing to open source data tooling — fixing change-data-capture bugs in Kestra's Debezium plugin and building shared embedding infrastructure for Filament's vector-database sinks.",
   ],
   facts: [
     { label: "Institution", value: "Academy of Technology, Kolkata" },
@@ -95,12 +97,14 @@ export const stackIcons: StackIcon[] = [
   { name: "TypeScript", iconKey: "siTypescript" },
   { name: "JavaScript", iconKey: "siJavascript" },
   { name: "Python", iconKey: "siPython" },
+  { name: "Java", iconKey: "siOpenjdk" },
   { name: "C++", iconKey: "siCplusplus" },
   { name: "Node.js", iconKey: "siNodedotjs" },
   { name: "React", iconKey: "siReact" },
   { name: "Next.js", iconKey: "siNextdotjs" },
   { name: "Tailwind CSS", iconKey: "siTailwindcss" },
   { name: "Express", iconKey: "siExpress" },
+  { name: "FastAPI", iconKey: "siFastapi" },
   { name: "Flask", iconKey: "siFlask" },
   { name: "Spring Boot", iconKey: "siSpringboot" },
   { name: "Docker", iconKey: "siDocker" },
@@ -162,6 +166,27 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/debopamghosh12/Cognizant_Hackathon",
   },
   {
+    name: "BlockEvidence",
+    tag: "Final-year project",
+    flagship: false,
+    description:
+      "A tamper-evident crime-evidence management system: a Spring Boot rewrite of my earlier Node.js/Hyperledger Fabric prototype, with a Next.js frontend. Every ledger write is signed with the calling user's own Fabric-CA-issued identity and checked again inside Go chaincode. Evidence is never deleted — updates are versioned, disposal needs approval, and a verify endpoint re-hashes files against the ledger. Files are envelope-encrypted (a per-file AES-256-GCM key wrapped with RSA-OAEP per authorised user) before going to IPFS, and a ledger event listener syncs chaincode writes into Postgres for search, dashboards, and live tamper alerts.",
+    metric: "6 roles · two-step custody transfer · SHA-256 verify · chain-of-custody PDF reports",
+    tags: ["Java 21", "Spring Boot", "Hyperledger Fabric", "Go chaincode", "IPFS", "PostgreSQL", "Next.js"],
+    githubUrl: "https://github.com/debopamghosh12/Crime_evidence_Spring",
+  },
+  {
+    name: "Matchday",
+    tag: "Live · Serverless",
+    flagship: false,
+    description:
+      "A football calendar for Indian fans: fixtures, live scores, tables, and top scorers for Europe's big leagues and the Champions League, with every kick-off on the correct IST date. A Vercel serverless proxy keeps the API key off the client and layers CDN caching (stale-while-revalidate), per-instance caching, and React Query so the whole app fits inside the API's 10-requests-per-minute free tier. Installable PWA with .ics calendar export and team follow feeds.",
+    metric: "3-level caching · 29-day range in 3 upstream calls · UTC→IST date boundaries",
+    tags: ["React", "TypeScript", "Vercel Functions", "React Query", "PWA"],
+    githubUrl: "https://github.com/debopamghosh12/Matchday",
+    demoUrl: "https://matchday-two-beryl.vercel.app/",
+  },
+  {
     name: "Sanvix",
     tag: "SIH 2024 · Finalist",
     flagship: false,
@@ -182,14 +207,14 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/debopamghosh12/CodeArena",
   },
   {
-    name: "EvidenceChain",
-    tag: "Blockchain · Hackathon",
+    name: "Persist",
+    tag: "Live · Personal tool",
     flagship: false,
     description:
-      "A forensic evidence management backend combining off-chain metadata storage on IPFS with an on-chain asset ledger on Hyperledger Fabric — built to keep a tamper-evident record of evidence handling from collection through release. Tracks evidence through a five-stage custody lifecycle (Collected → Processing → Analyzed → Archived → Released), logging every transfer between officers with a timestamp against the record, plus search and filtering by case ID, officer, status, date range, and full-text query, with pagination and bulk create/delete endpoints. Only the IPFS content pointer (CID) is written to the Fabric ledger, keeping on-chain storage lean while preserving verifiability.",
-    metric: "5-stage custody lifecycle · IPFS-backed metadata · Hyperledger Fabric ledger",
-    tags: ["Node.js", "Express", "Hyperledger Fabric", "IPFS", "Blockchain"],
-    githubUrl: "https://github.com/debopamghosh12/Crime_evidence_backend",
+      "The study tracker I use for placement season: a 13-week plan across five subjects with an hour-by-hour daily timetable, automatic carry-forward of unfinished tasks at midnight, honest streak rules, weekly reviews, and a GitHub-style heatmap. Works offline from local storage first, with optional cross-device sync through Supabase magic-link auth and Row-Level Security.",
+    tags: ["React", "TypeScript", "Supabase", "Tailwind CSS", "Vitest"],
+    githubUrl: "https://github.com/debopamghosh12/Streak_Tracker",
+    demoUrl: "https://streak-tracker-liart-chi.vercel.app/",
   },
   {
     name: "AssetPulse",
@@ -212,11 +237,41 @@ export const projects: Project[] = [
 ];
 
 // ----------------------------------------------------------------------------
+// openSourceContent / openSource — Open Source section header, and one row
+// per contribution, in display order. Each row links to its repository.
+// ----------------------------------------------------------------------------
+export const openSourceContent = {
+  index: "04",
+  title: "Open Source",
+};
+
+export type OpenSourceItem = {
+  project: string;
+  description: string;
+  url: string;
+};
+
+export const openSource: OpenSourceItem[] = [
+  {
+    project: "Kestra · plugin-debezium",
+    description:
+      "Fixed change-data-capture bugs in Kestra's Debezium plugin (Java): delete events weren't being dropped when deleted: DROP was set, and MicroDuration values were being converted from the wrong unit. Part of Kestra's Hacktoberfest 2026.",
+    url: "https://github.com/kestra-io/plugin-debezium",
+  },
+  {
+    project: "Filament · galaxy-io",
+    description:
+      "Opened issue #557 on flaws in the Milvus and Qdrant vector-database sinks, and am building the shared internal/embedding package that those sinks and upcoming Pinecone support will build on (Go).",
+    url: "https://github.com/galaxy-io/filament",
+  },
+];
+
+// ----------------------------------------------------------------------------
 // achievementsContent / achievements — Achievements & Certifications section
 // header, and one row per entry, in display order.
 // ----------------------------------------------------------------------------
 export const achievementsContent = {
-  index: "04",
+  index: "05",
   title: "Achievements & Certifications",
 };
 
@@ -237,12 +292,12 @@ export const achievements: Achievement[] = [
   },
   {
     label: "TCS CodeVita Season 13",
-    description: "Secured a global rank of 12,233, recognized for exceptional coding skills.",
+    description: "Cleared Round 1 with a global rank of 12,233.",
   },
   {
     label: "Competitive Programming",
     description:
-      "Codeforces participant, max rating 1223. Consistent practice in data structures, algorithms, and debugging logic-heavy solutions.",
+      "Codeforces max rating 1223 (Terminator12) and regular LeetCode practice (Debopam_), working through structured DSA sheets.",
   },
   {
     label: "Machine Learning Specialization",
@@ -257,7 +312,7 @@ export const achievements: Achievement[] = [
 // fixed icon order from this same array — see the comment there).
 // ----------------------------------------------------------------------------
 export const contactContent = {
-  index: "05",
+  index: "06",
   title: "Contact",
   eyebrow: "Let's work together",
   heading: "Get in Touch",
