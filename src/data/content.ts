@@ -108,6 +108,7 @@ export const stackIcons: StackIcon[] = [
   { name: "Flask", iconKey: "siFlask" },
   { name: "Spring Boot", iconKey: "siSpringboot" },
   { name: "Docker", iconKey: "siDocker" },
+  { name: "AWS", iconKey: "deviconAws" },
   { name: "Vercel", iconKey: "siVercel" },
   { name: "PostgreSQL", iconKey: "siPostgresql" },
   { name: "MongoDB", iconKey: "siMongodb" },
