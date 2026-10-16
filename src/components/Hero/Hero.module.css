@@ -56,7 +56,7 @@
   height: 8px;
   border-radius: 50%;
   background: var(--accent-cool);
-  box-shadow: 0 0 0 3px rgba(63, 217, 199, 0.15);
+  box-shadow: 0 0 0 3px rgba(240, 171, 252, 0.15);
   flex-shrink: 0;
 }
 

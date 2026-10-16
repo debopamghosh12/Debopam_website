@@ -1,12 +1,14 @@
 :root {
-  --bg: #120f0d;
-  --bg-elevated: #1c1815;
-  --accent: #f2a93b;
-  --accent-cool: #3fd9c7;
-  --text: #edeef0;
-  --text-dim: #8a93a6;
-  --line: rgba(237, 238, 240, 0.07);
-  --line-strong: rgba(237, 238, 240, 0.16);
+  --bg: #0d0a16;
+  --bg-elevated: #161126;
+  --accent: #c4a1ff;
+  --accent-cool: #f0abfc;
+  --text: #ece9f5;
+  --text-dim: #9a93b0;
+  --line: rgba(196, 161, 255, 0.09);
+  --line-strong: rgba(196, 161, 255, 0.2);
+  /* Dark theme only — the soft violet wash behind the page (see body). */
+  --bg-glow: rgba(124, 58, 237, 0.1);
 
   --font-display: "Space Grotesk", "Segoe UI", sans-serif;
   --font-body: "Inter", "Segoe UI", sans-serif;
@@ -18,14 +20,14 @@
 }
 
 :root[data-theme="light"] {
-  --bg: #ede7dc;
-  --bg-elevated: #f5f0e6;
-  --accent: #c97a1e;
-  --accent-cool: #1b9c8a;
-  --text: #1a1712;
-  --text-dim: #6b6558;
-  --line: rgba(26, 23, 18, 0.1);
-  --line-strong: rgba(26, 23, 18, 0.22);
+  --bg: #f3f0fa;
+  --bg-elevated: #faf8ff;
+  --accent: #6d28d9;
+  --accent-cool: #a21caf;
+  --text: #1a1426;
+  --text-dim: #625a75;
+  --line: rgba(26, 20, 38, 0.1);
+  --line-strong: rgba(26, 20, 38, 0.22);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -85,6 +87,19 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+/* A large, barely-there violet glow near the top-right, pinned to the
+   viewport, so the dark background doesn't read as flat black. It sits
+   under all content, so text contrast is unchanged. */
+:root:not([data-theme="light"]) body {
+  background-image: radial-gradient(
+    ellipse 70% 60% at 88% 0%,
+    var(--bg-glow),
+    transparent 70%
+  );
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 h1,
@@ -185,13 +200,13 @@ svg {
 
 .btn-primary {
   background: var(--accent);
-  color: #120f0d;
+  color: var(--bg);
   border-color: var(--accent);
 }
 
 .btn-primary:hover {
-  background: #ffbb5c;
-  border-color: #ffbb5c;
+  background: var(--accent-cool);
+  border-color: var(--accent-cool);
 }
 
 .btn-ghost {
