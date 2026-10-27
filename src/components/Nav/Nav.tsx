@@ -1,9 +1,39 @@
+import { useEffect, useRef, useState } from "react";
 import styles from "./Nav.module.css";
 import { nav } from "../../data/content";
 import { useTheme } from "../../hooks/useTheme";
 
 export default function Nav() {
   const { theme, toggleTheme } = useTheme();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  // Mobile menu: close on Escape or on a tap outside the panel/button.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    const onPointerDown = (e: PointerEvent) => {
+      const target = e.target as Node;
+      if (
+        !panelRef.current?.contains(target) &&
+        !menuButtonRef.current?.contains(target)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [menuOpen]);
 
   return (
     <header className={styles.nav}>
@@ -14,7 +44,7 @@ export default function Nav() {
         <nav>
           <ul className={styles.links}>
             {nav.links.map((link) => (
-              <li key={link.href}>
+              <li key={link.href} className={styles.linkItem}>
                 <a href={link.href}>{link.label}</a>
               </li>
             ))}
@@ -57,9 +87,56 @@ export default function Nav() {
                 </span>
               </button>
             </li>
+            <li className={styles.menuItem}>
+              <button
+                ref={menuButtonRef}
+                type="button"
+                className={styles.menuButton}
+                onClick={() => setMenuOpen((open) => !open)}
+                aria-label="Open menu"
+                aria-expanded={menuOpen}
+                aria-controls="mobile-menu"
+              >
+                <svg
+                  className={styles.menuIcon}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  aria-hidden="true"
+                >
+                  {menuOpen ? (
+                    <>
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                    </>
+                  ) : (
+                    <>
+                      <line x1="4" y1="7" x2="20" y2="7" />
+                      <line x1="4" y1="12" x2="20" y2="12" />
+                      <line x1="4" y1="17" x2="20" y2="17" />
+                    </>
+                  )}
+                </svg>
+              </button>
+            </li>
           </ul>
         </nav>
       </div>
+      {menuOpen && (
+        <div id="mobile-menu" ref={panelRef} className={styles.panel}>
+          <ul className={`container ${styles.panelLinks}`}>
+            {nav.links.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} onClick={() => setMenuOpen(false)}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </header>
   );
 }

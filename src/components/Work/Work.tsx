@@ -51,7 +51,9 @@ export default function Work() {
                     </span>
                   ))}
                 </div>
-                {(project.githubUrl || project.demoUrl) && (
+                {(project.githubUrl ||
+                  project.demoUrl ||
+                  project.marketplaceUrl) && (
                   <div className={styles.linkRow}>
                     {project.githubUrl && (
                       <a
@@ -72,6 +74,16 @@ export default function Work() {
                         rel="noreferrer"
                       >
                         Live demo
+                      </a>
+                    )}
+                    {project.marketplaceUrl && (
+                      <a
+                        className={`btn btn-ghost ${styles.linkBtn}`}
+                        href={project.marketplaceUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Marketplace
                       </a>
                     )}
                   </div>

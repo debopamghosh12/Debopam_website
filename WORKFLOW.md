@@ -19,6 +19,7 @@ the end (or wherever you want it in the pipeline order):
   tags: ["Tech", "Tags", "Here"],
   githubUrl: "https://github.com/you/repo",
   demoUrl: "https://your-live-demo.com",   // optional — omit until a live demo actually exists
+  marketplaceUrl: "https://github.com/marketplace/actions/...", // optional — adds a "Marketplace" button
 },
 ```
 

@@ -61,7 +61,7 @@ export const aboutContent = {
   paragraphs: [
     "I'm a backend-first, systems-minded engineer in my final year of a CSBS program at Academy of Technology, Kolkata. I care more about how a system behaves under load, bad data, and edge cases than how it looks — the interesting problems live in the plumbing.",
     "Most of my work sits across FastAPI, Spring Boot, and Node.js/Express, building APIs and data pipelines that other things depend on. Over the last year that's pulled me increasingly into ML-adjacent territory — forecasting, classification, and the infrastructure needed to serve those models reliably.",
-    "This year I was integration lead on MedCare Pharma, a full pharma supply-chain platform, and I rebuilt my final-year project, BlockEvidence, as a Spring Boot backend on a real Hyperledger Fabric ledger with per-user identities and envelope encryption.",
+    "This year I was integration lead on MedCare Pharma, a full pharma supply-chain platform, and I rebuilt my final-year project, BlockEvidence, as a Spring Boot backend on a real Hyperledger Fabric ledger with per-user identities and envelope encryption. Most recently I built Driftless solo in a 24-hour hackathon: a GitHub Action that runs every example in a repo's docs on each pull request and fixes the ones that drift.",
     "Lately I've been contributing to open source data tooling — fixing change-data-capture bugs in Kestra's Debezium plugin and building shared embedding infrastructure for Filament's vector-database sinks.",
   ],
   facts: [
@@ -137,7 +137,8 @@ export const githubActivityContent = {
 // `flagship: true` gives a module the filled dot marker + bold tag styling
 // (currently only MedCare Pharma); every other module uses `false`.
 // `demoUrl` is optional — omit it entirely until a project has a live demo
-// (no placeholder/dead links).
+// (no placeholder/dead links). `marketplaceUrl` is likewise optional and adds
+// a "Marketplace" button (e.g. a GitHub Marketplace listing).
 // ----------------------------------------------------------------------------
 export const workContent = {
   index: "03",
@@ -153,6 +154,7 @@ export type Project = {
   tags: string[];
   githubUrl?: string;
   demoUrl?: string;
+  marketplaceUrl?: string;
 };
 
 export const projects: Project[] = [
@@ -165,6 +167,18 @@ export const projects: Project[] = [
     metric: "XGBRegressor forecast model · 14.2% MAPE · 3-way invoice matching at 2% tolerance.",
     tags: ["FastAPI", "React/Vite", "XGBoost", "OCR", "Docker"],
     githubUrl: "https://github.com/debopamghosh12/Cognizant_Hackathon",
+  },
+  {
+    name: "Driftless",
+    tag: "Hackathon · Built in 24h",
+    flagship: false,
+    description:
+      "A docs agent that doesn't just rewrite documentation, it runs it. On every pull request Driftless parses the diff (Python AST plus regex for JS/TS, routes, env vars, CLI flags), finds the doc sections that went stale, and has an LLM rewrite only those sections. Every rewrite is checked statically against the code. Then it starts the repo's real FastAPI app in a sandbox and executes every documented curl/http example, tracing failures to their root cause and keeping a fix only if it passes when re-run. The result is one PR comment, a blocking docs-in-sync commit status, and a /driftless apply command that commits the fix. Ships as a CLI, a self-hosted web app, and a GitHub Action on the Marketplace.",
+    metric: "320 passing tests · executes every documented example · GitHub Action on the Marketplace",
+    tags: ["Python", "FastAPI", "LLM (GPT-OSS 120B on Groq)", "GitHub Actions", "PyGithub", "SQLite", "Docker"],
+    githubUrl: "https://github.com/debopamghosh12/driftless",
+    demoUrl: "https://driftless-vqms.onrender.com/",
+    marketplaceUrl: "https://github.com/marketplace/actions/driftless-docs-check",
   },
   {
     name: "BlockEvidence",
